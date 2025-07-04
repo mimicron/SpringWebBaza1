@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Что такое HTTP?</title>
+    <style>
+        /* Общие стили — стиль Facebook */
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #e7e9eb;
+            margin: 0;
+            padding: 0;
+            color: #1c1e21;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #dddfe2;
+        }
+
+        header h1 {
+            font-size: 36px;
+            color: #1877f2;
+            margin: 0;
+        }
+
+        header p {
+            font-size: 18px;
+            color: #65676b;
+            margin-top: 10px;
+        }
+
+        main {
+            margin-top: 30px;
+        }
+
+        h2 {
+            color: #1c1e21;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        code {
+            background-color: #f0f2f5;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        pre {
+            background-color: #f0f2f5;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: monospace;
+            font-size: 14px;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 14px;
+            color: #65676b;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #dddfe2;
+        }
+
+        a {
+            color: #1877f2;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1 th:text="${title}">Что такое HTTP?</h1>
+        <p>Объяснение протокола передачи данных в интернете</p>
+    </header>
+
+    <main>
+        <h2>Определение HTTP</h2>
+        <p>
+            <strong>HTTP</strong> (<em>Hypertext Transfer Protocol</em>) — это прикладной сетевой протокол для передачи гипертекстовых документов, таких как HTML.
+            Он используется в World Wide Web и позволяет браузерам получать данные с серверов.
+        </p>
+
+        <h2>Как работает HTTP?</h2>
+        <p>
+            HTTP работает по принципу запрос-ответ. Клиент (браузер) отправляет <code>HTTP-запрос</code> на сервер,
+            запрашивая определённый ресурс (например, страницу или изображение). Сервер обрабатывает этот запрос и отвечает соответствующим <code>HTTP-ответом</code>,
+            который может содержать запрошенные данные или сообщение об ошибке.
+        </p>
+
+        <h3>Пример HTTP-запроса:</h3>
+        <pre>
+GET /index.html HTTP/1.1
+Host: www.example.com
+        </pre>
+
+        <h3>Пример HTTP-ответа:</h3>
+        <pre>
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=UTF-8
+
+<html>
+  <body>
+    <h1>Добро пожаловать!</h1>
+  </body>
+</html>
+        </pre>
+
+        <h2>Методы HTTP</h2>
+        <p>
+            HTTP определяет несколько методов (глаголов), используемых для выполнения действий:
+        </p>
+        <ul>
+            <li><code>GET</code> — запрашивает данные.</li>
+            <li><code>POST</code> — отправляет данные на сервер для создания/обновления ресурса.</li>
+            <li><code>PUT</code> — обновляет существующий ресурс.</li>
+            <li><code>DELETE</code> — удаляет указанный ресурс.</li>
+            <li><code>HEAD</code> — аналогичен GET, но без тела ответа.</li>
+            <li><code>PATCH</code> — частично изменяет ресурс.</li>
+        </ul>
+
+        <h2>Статусы HTTP</h2>
+        <p>
+            HTTP-статусы информируют клиента о результате запроса. Вот некоторые из них:
+        </p>
+        <ul>
+            <li><code>200 OK</code> — успешное выполнение.</li>
+            <li><code>301 Moved Permanently</code> — постоянное перемещение.</li>
+            <li><code>404 Not Found</code> — ресурс не найден.</li>
+            <li><code>500 Internal Server Error</code> — внутренняя ошибка сервера.</li>
+        </ul>
+
+        <h2>HTTP vs HTTPS</h2>
+        <p>
+            <strong>HTTPS</strong> — это безопасная версия HTTP, которая использует шифрование SSL/TLS для защиты передаваемых данных.
+            Это особенно важно при передаче конфиденциальной информации, такой как логины, пароли или данные банковских карт.
+        </p>
+
+        <h2>Заключение</h2>
+        <p>
+            HTTP — основа современного веба. Понимание его работы необходимо каждому разработчику и пользователю, желающему глубже понять, как функционирует интернет.
+        </p>
+    </main>
+
+    <footer>
+        <p>&copy; <span th:text="${#calendars.format(#calendars.getInstance(), 'yyyy')}">2025</span> Ваш сайт о технологиях</p>
+    </footer>
+</div>
+
+</body>
+</html>
