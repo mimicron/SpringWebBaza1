@@ -1,10 +1,233 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Что такое WebSocket?</title>
+    <style>
+        /* Общие стили — стиль Facebook */
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #e7e9eb;
+            margin: 0;
+            padding: 0;
+            color: #1c1e21;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #dddfe2;
+        }
+
+        header h1 {
+            font-size: 36px;
+            color: #1877f2;
+            margin: 0;
+        }
+
+        header p {
+            font-size: 18px;
+            color: #65676b;
+            margin-top: 10px;
+        }
+
+        main {
+            margin-top: 30px;
+        }
+
+        h2 {
+            color: #1c1e21;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        code {
+            background-color: #f0f2f5;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        pre {
+            background-color: #f0f2f5;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: monospace;
+            font-size: 14px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #dddfe2;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 14px;
+            color: #65676b;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #dddfe2;
+        }
+
+        a {
+            color: #1877f2;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-$END$
+
+<div class="container">
+    <header>
+        <h1 th:text="${webSocket}">Что такое WebSocket?</h1>
+        <p>Объяснение технологии двусторонней связи между клиентом и сервером</p>
+    </header>
+
+    <main>
+        <h2>Определение WebSocket</h2>
+        <p>
+            <strong>WebSocket</strong> — это протокол связи поверх TCP, позволяющий устанавливать постоянное,
+            двустороннее соединение между браузером (клиентом) и сервером. Он позволяет передавать данные в режиме реального времени без необходимости повторных HTTP-запросов.
+        </p>
+
+        <h2>Как работает WebSocket?</h2>
+        <p>
+            WebSocket начинается с обычного HTTP-запроса, который затем "повышается" до WebSocket-соединения через заголовок:
+        </p>
+        <pre>
+GET /chat HTTP/1.1
+Host: example.com
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw==
+Sec-WebSocket-Version: 13
+        </pre>
+
+        <p>
+            Если сервер поддерживает WebSocket, он отвечает положительным ответом:
+        </p>
+        <pre>
+HTTP/1.1 101 Switching Protocols
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Accept: HSmrc0sMlYUkAGmm5OPpG2HaGWk=
+        </pre>
+
+        <p>
+            После этого соединение становится постоянным, и обе стороны могут отправлять данные друг другу в любое время.
+        </p>
+
+        <h2>Основные особенности WebSocket</h2>
+        <ul>
+            <li><strong>Двусторонняя связь:</strong> сервер может сам отправлять сообщения клиенту.</li>
+            <li><strong>Низкая задержка:</strong> не нужно ждать запроса клиента.</li>
+            <li><strong>Экономия ресурсов:</strong> одно соединение вместо множества HTTP-запросов.</li>
+            <li><strong>Работает через прокси и фильтры:</strong> использует порт 80/443.</li>
+        </ul>
+
+        <h2>Где используется WebSocket?</h2>
+        <p>
+            WebSocket идеален для приложений, где важны обновления в реальном времени:
+        </p>
+        <ul>
+            <li>Чаты и мессенджеры;</li>
+            <li>Спортивные трансляции и онлайн-игры;</li>
+            <li>Финансовые приложения (биржи);</li>
+            <li>Уведомления и онлайн-редакторы;</li>
+            <li>IoT и системы мониторинга.</li>
+        </ul>
+
+        <h2>Пример использования (JavaScript)</h2>
+        <pre>
+// Установка соединения
+const socket = new WebSocket('ws://example.com/socket');
+
+// Событие при получении сообщения
+socket.addEventListener('message', function (event) {
+    console.log('Получено:', event.data);
+});
+
+// Отправка сообщения
+socket.send('Привет, сервер!');
+        </pre>
+
+        <h2>WebSocket vs HTTP</h2>
+        <table>
+            <tr>
+                <th>WebSocket</th>
+                <th>HTTP</th>
+            </tr>
+            <tr>
+                <td>Двусторонняя связь</td>
+                <td>Односторонняя (клиент → сервер)</td>
+            </tr>
+            <tr>
+                <td>Постоянное соединение</td>
+                <td>Каждый запрос открывает новое соединение</td>
+            </tr>
+            <tr>
+                <td>Меньше накладных расходов</td>
+                <td>Заголовки с каждым запросом</td>
+            </tr>
+            <tr>
+                <td>Идеален для реального времени</td>
+                <td>Подходит для стандартных страниц</td>
+            </tr>
+        </table>
+
+        <h2>WebSocket vs HTTP/2 Server Push</h2>
+        <p>
+            Хотя HTTP/2 позволяет серверу отправлять данные клиенту заранее, он всё равно:
+        </p>
+        <ul>
+            <li>Не поддерживает произвольную отправку данных;</li>
+            <li>Не сохраняет постоянное соединение;</li>
+            <li>Менее гибкий по сравнению с WebSocket.</li>
+        </ul>
+
+        <h2>Заключение</h2>
+        <p>
+            WebSocket — мощный инструмент для создания интерактивных веб-приложений. Он позволяет организовать обмен данными в реальном времени,
+            что делает его незаменимым в чатах, трансляциях, играх и других приложениях с высокими требованиями к скорости и отзывчивости.
+        </p>
+    </main>
+
+    <footer>
+        <p>&copy; <span th:text="${T(java.time.Year).now().value}">2025</span> Ваш сайт о технологиях</p>
+    </footer>
+</div>
+
 </body>
 </html>

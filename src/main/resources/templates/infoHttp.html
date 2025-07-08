@@ -96,7 +96,7 @@
 
 <div class="container">
     <header>
-        <h1 th:text="${title}">Что такое HTTP?</h1>
+        <h1 th:text="${httpInfo}">Что такое HTTP?</h1>
         <p>Объяснение протокола передачи данных в интернете</p>
     </header>
 
@@ -169,7 +169,7 @@ Content-Type: text/html; charset=UTF-8
     </main>
 
     <footer>
-        <p>&copy; <span th:text="${#calendars.format(#calendars.getInstance(), 'yyyy')}">2025</span> Ваш сайт о технологиях</p>
+        <p>&copy; <span th:text="${javaMush}">2025</span> Ваш сайт о технологиях</p>
     </footer>
 </div>
 

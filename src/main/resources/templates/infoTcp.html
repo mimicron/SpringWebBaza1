@@ -1,10 +1,198 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Что такое TCP?</title>
+    <style>
+        /* Общие стили — стиль Facebook */
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #e7e9eb;
+            margin: 0;
+            padding: 0;
+            color: #1c1e21;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #dddfe2;
+        }
+
+        header h1 {
+            font-size: 36px;
+            color: #1877f2;
+            margin: 0;
+        }
+
+        header p {
+            font-size: 18px;
+            color: #65676b;
+            margin-top: 10px;
+        }
+
+        main {
+            margin-top: 30px;
+        }
+
+        h2 {
+            color: #1c1e21;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        code {
+            background-color: #f0f2f5;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        pre {
+            background-color: #f0f2f5;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: monospace;
+            font-size: 14px;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 14px;
+            color: #65676b;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #dddfe2;
+        }
+
+        a {
+            color: #1877f2;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-$END$
+
+<div class="container">
+    <header>
+        <h1 th:text="${infoTcp}">Что такое TCP?</h1>
+        <p>Объяснение протокола надежной передачи данных в интернете</p>
+    </header>
+
+    <main>
+        <h2>Определение TCP</h2>
+        <p>
+            <strong>TCP</strong> (<em>Transmission Control Protocol</em>) — это протокол транспортного уровня,
+            обеспечивающий надёжную, ориентированную на соединение передачу данных между приложениями через сеть.
+            Он гарантирует доставку пакетов в правильном порядке и без потерь.
+        </p>
+
+        <h2>Как работает TCP?</h2>
+        <p>
+            TCP работает по принципу <strong>трехстороннего рукопожатия</strong> для установки соединения:
+        </p>
+        <ol>
+            <li><strong>Syn:</strong> клиент отправляет серверу запрос на установление соединения.</li>
+            <li><strong>Syn-Ack:</strong> сервер отвечает подтверждением.</li>
+            <li><strong>Ack:</strong> клиент подтверждает получение ответа, и соединение установлено.</li>
+        </ol>
+
+        <p>
+            После этого данные разбиваются на сегменты, нумеруются и отправляются по сети. Получатель подтверждает каждый сегмент.
+            Если подтверждение не приходит, сегмент отправляется снова.
+        </p>
+
+        <h2>Основные характеристики TCP</h2>
+        <ul>
+            <li><strong>Надёжность:</strong> все данные доходят до адресата.</li>
+            <li><strong>Порядок следования:</strong> данные восстанавливаются в исходном порядке.</li>
+            <li><strong>Контроль потока:</strong> регулирует скорость передачи, чтобы не перегружать получателя.</li>
+            <li><strong>Контроль перегрузки:</strong> адаптирует скорость передачи при перегрузке сети.</li>
+        </ul>
+
+        <h2>Где используется TCP?</h2>
+        <p>
+            TCP широко применяется там, где важна точность и надёжность передачи:
+        </p>
+        <ul>
+            <li>HTTP / HTTPS — загрузка веб-страниц;</li>
+            <li>Email (SMTP, POP, IMAP);</li>
+            <li>Файловые передачи (FTP);</li>
+            <li>Базы данных;</li>
+            <li>Мессенджеры и другие приложения, требующие точной передачи данных.</li>
+        </ul>
+
+        <h2>Пример TCP-сегмента</h2>
+        <pre>
+Source Port: 5000
+Destination Port: 80
+Sequence Number: 1000
+Acknowledgment Number: 2000
+Flags: [SYN]
+Window Size: 65535
+Checksum: 0x1234
+Data: ...
+        </pre>
+
+        <h2>TCP vs UDP</h2>
+        <p>
+            TCP часто сравнивают с <code>UDP</code> (User Datagram Protocol):
+        </p>
+        <table border="1" cellpadding="10" cellspacing="0" style="width: 100%; border-collapse: collapse;">
+            <tr>
+                <th style="text-align:left;">TCP</th>
+                <th style="text-align:left;">UDP</th>
+            </tr>
+            <tr>
+                <td>Надёжная передача данных</td>
+                <td>Ненадёжная, но быстрая передача</td>
+            </tr>
+            <tr>
+                <td>Установка соединения</td>
+                <td>Нет установки соединения</td>
+            </tr>
+            <tr>
+                <td>Гарантированный порядок</td>
+                <td>Порядок может быть нарушен</td>
+            </tr>
+            <tr>
+                <td>Подходит для веба, email, файлов</td>
+                <td>Используется в стриминге, играх, VoIP</td>
+            </tr>
+        </table>
+
+        <h2>Заключение</h2>
+        <p>
+            TCP — один из краеугольных камней интернета. Благодаря своей надёжности он лежит в основе большинства сетевых приложений.
+            Понимание его работы помогает лучше разбираться в том, как информация передается по сети.
+        </p>
+    </main>
+
+    <footer>
+        <p>&copy; <span th:text="${T(java.time.Year).now().value}">2025</span> Ваш сайт о технологиях</p>
+    </footer>
+</div>
+
 </body>
 </html>
